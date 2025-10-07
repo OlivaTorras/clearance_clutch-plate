@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calculadora: Medida Plato / Embrague / Calibrado</title>
+  <style>
+    :root{--bg:#f6f8fb;--card:#fff;--accent:#0f62fe;--muted:#6b7280}
+    body{font-family:Inter,system-ui,Arial;background:var(--bg);margin:0;padding:32px;color:#0b1220}
+    .container{max-width:900px;margin:0 auto}
+    h1{margin:0 0 8px;font-size:20px}
+    p.lead{margin:0 0 20px;color:var(--muted)}
+    .card{background:var(--card);border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 6px 20px rgba(12,15,30,0.06)}
+    .step{display:grid;grid-template-columns:1fr 220px;gap:12px;align-items:start}
+    .inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    input[type=number]{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef;font-size:15px}
+    .imgbox{border:1px dashed #dbe3f3;border-radius:8px;padding:8px;text-align:center;height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+    .thumb{max-width:180px;max-height:120px;object-fit:contain;border-radius:6px}
+    .meta{font-size:13px;color:var(--muted)}
+    .controls{display:flex;gap:8px;margin-top:12px}
+    button{background:var(--accent);color:white;padding:10px 12px;border-radius:10px;border:none;cursor:pointer}
+    button.secondary{background:#e6eefc;color:var(--accent);border:1px solid #cfe0ff}
+    .result{font-weight:700;font-size:18px}
+    .small{font-size:13px;color:#334155}
+    footer{margin-top:16px;text-align:right;color:var(--muted);font-size:13px}
+    @media (max-width:800px){.step{grid-template-columns:1fr;}.inputs{grid-template-columns:repeat(3,1fr)} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora online — Medida Plato / Embrague / Calibrado</h1>
+    <p class="lead">Introduce los tres valores (2 decimales) de cada paso, opcionalmente adjunta una imagen representativa. La app calcula las medias y aplica la fórmula final.</p>
+
+    <!-- STEP 1 -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong>PASO 1 — Medida Plato</strong>
+        <div class="small">Media de 3 valores</div>
+      </div>
+      <div class="step">
+        <div>
+          <div class="inputs">
+            <div>
+              <label>Plato 1</label>
+              <input type="number" inputmode="decimal" step="0.01" min="-999999" id="p1" placeholder="0.00">
+            </div>
+            <div>
+              <label>Plato 2</label>
+              <input type="number" inputmode="decimal" step="0.01" min="-999999" id="p2" placeholder="0.00">
+            </div>
+            <div>
+              <label>Plato 3</label>
+              <input type="number" inputmode="decimal" step="0.01" min="-999999" id="p3" placeholder="0.00">
+            </div>
+          </div>
+          <div style="margin-top:10px"><span class="meta">Media:</span> <span id="avgP" class="result">—</span></div>
+        </div>
+        <div>
+          <label>Imagen representativa</label>
+          <div class="imgbox">
+            <img id="thumbP" class="thumb" style="display:none">
+            <div id="dropP" class="meta">Arrastra o selecciona una imagen</div>
+            <input id="imgP" type="file" accept="image/*" style="margin-top:6px">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong>PASO 2 — Medida Embrague</strong>
+        <div class="small">Media de 3 valores</div>
+      </div>
+      <div class="step">
+        <div>
+          <div class="inputs">
+            <div>
+              <label>Embrague 1</label>
+              <input type="number" inputmode="decimal" step="0.01" id="e1" placeholder="0.00">
+            </div>
+            <div>
+              <label>Embrague 2</label>
+              <input type="number" inputmode="decimal" step="0.01" id="e2" placeholder="0.00">
+            </div>
+            <div>
+              <label>Embrague 3</label>
+              <input type="number" inputmode="decimal" step="0.01" id="e3" placeholder="0.00">
+            </div>
+          </div>
+          <div style="margin-top:10px"><span class="meta">Media:</span> <span id="avgE" class="result">—</span></div>
+        </div>
+        <div>
+          <label>Imagen representativa</label>
+          <div class="imgbox">
+            <img id="thumbE" class="thumb" style="display:none">
+            <div id="dropE" class="meta">Arrastra o selecciona una imagen</div>
+            <input id="imgE" type="file" accept="image/*" style="margin-top:6px">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong>PASO 3 — Calibrado Tool</strong>
+        <div class="small">Media de 3 valores</div>
+      </div>
+      <div class="step">
+        <div>
+          <div class="inputs">
+            <div>
+              <label>Tool 1</label>
+              <input type="number" inputmode="decimal" step="0.01" id="t1" placeholder="0.00">
+            </div>
+            <div>
+              <label>Tool 2</label>
+              <input type="number" inputmode="decimal" step="0.01" id="t2" placeholder="0.00">
+            </div>
+            <div>
+              <label>Tool 3</label>
+              <input type="number" inputmode="decimal" step="0.01" id="t3" placeholder="0.00">
+            </div>
+          </div>
+          <div style="margin-top:10px"><span class="meta">Media:</span> <span id="avgT" class="result">—</span></div>
+        </div>
+        <div>
+          <label>Imagen representativa</label>
+          <div class="imgbox">
+            <img id="thumbT" class="thumb" style="display:none">
+            <div id="dropT" class="meta">Arrastra o selecciona una imagen</div>
+            <input id="imgT" type="file" accept="image/*" style="margin-top:6px">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <strong>Resultado</strong>
+          <div class="small">Fórmula: 0.4 - ((Medida Plato + Medida Embrague) - Calibrado Tool)</div>
+        </div>
+        <div style="text-align:right">
+          <div><span class="meta">Resultado:</span> <span id="final" class="result">—</span></div>
+          <div class="meta">(Se muestran valores con 4 decimales)</div>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="calc">Calcular</button>
+        <button id="clear" class="secondary">Limpiar</button>
+        <button id="copy" class="secondary">Copiar resultado</button>
+      </div>
+    </div>
+
+    <footer>Hecho con ❤️ — Local, sin subir datos a servidores (todo en tu navegador)</footer>
+  </div>
+
+  <script>
+    // helpers
+    const $ = id => document.getElementById(id);
+    function meanOfThree(a,b,c){
+      const nums=[a,b,c].map(x=> (x===""||x===null||isNaN(Number(x)))?null:Number(x));
+      if(nums.includes(null)) return null;
+      const sum = nums[0]+nums[1]+nums[2];
+      return Math.round((sum/3)*100)/100; // keep 2 decimals for medias
+    }
+    function fmt(n,dec=4){ if(n===null||n===undefined||isNaN(n)) return '—'; return Number(n).toFixed(dec); }
+
+    function readAndUpdate(){
+      const avgP=meanOfThree($('p1').value,$('p2').value,$('p3').value);
+      const avgE=meanOfThree($('e1').value,$('e2').value,$('e3').value);
+      const avgT=meanOfThree($('t1').value,$('t2').value,$('t3').value);
+      $('avgP').textContent = avgP===null? '—' : avgP.toFixed(2);
+      $('avgE').textContent = avgE===null? '—' : avgE.toFixed(2);
+      $('avgT').textContent = avgT===null? '—' : avgT.toFixed(2);
+      return {avgP, avgE, avgT};
+    }
+
+    // auto-update when inputs change
+    const inputs = ['p1','p2','p3','e1','e2','e3','t1','t2','t3'];
+    inputs.forEach(id=>{
+      $(id).addEventListener('input', readAndUpdate);
+    });
+
+    // image previews
+    function attachPreview(fileInputId, imgId, labelId){
+      const fi=$(fileInputId), img=$(imgId), lbl=$(labelId);
+      fi.addEventListener('change', ()=>{
+        const f = fi.files && fi.files[0];
+        if(!f) { img.style.display='none'; lbl.style.display='block'; img.src=''; return; }
+        const url = URL.createObjectURL(f);
+        img.src = url; img.style.display='block'; lbl.style.display='none';
+      });
+    }
+    attachPreview('imgP','thumbP','dropP');
+    attachPreview('imgE','thumbE','dropE');
+    attachPreview('imgT','thumbT','dropT');
+
+    // calc
+    $('calc').addEventListener('click', ()=>{
+      const {avgP,avgE,avgT} = readAndUpdate();
+      if(avgP===null||avgE===null||avgT===null){
+        alert('Rellena los 3 valores en cada paso (todas las casillas) con números válidos de 2 decimales.');
+        return;
+      }
+      // formula: 0.4 - ((Medida Plato + Medida Embrague) - Calibrado Tool)
+      const res = 0.4 - ((avgP + avgE) - avgT);
+      $('final').textContent = fmt(res,4);
+    });
+
+    // copy
+    $('copy').addEventListener('click', ()=>{
+      const txt = $('final').textContent;
+      if(!txt || txt==='—') { alert('No hay resultado para copiar.'); return; }
+      navigator.clipboard?.writeText(txt).then(()=>{
+        alert('Resultado copiado: '+txt);
+      }, ()=>{ alert('No se pudo copiar automáticamente. Seleccione y copie manualmente.'); });
+    });
+
+    // clear
+    $('clear').addEventListener('click', ()=>{
+      inputs.forEach(id=>$(id).value='');
+      ['avgP','avgE','avgT','final'].forEach(id=>$(id).textContent='—');
+      ['imgP','imgE','imgT'].forEach(id=>{ $(id).value=''; });
+      ['thumbP','thumbE','thumbT'].forEach(id=>{ const im=$(id); im.style.display='none'; im.src=''; });
+      ['dropP','dropE','dropT'].forEach(id=>{ $(id).style.display='block'; });
+    });
+
+    // initial
+    readAndUpdate();
+  </script>
+</body>
+</html>
