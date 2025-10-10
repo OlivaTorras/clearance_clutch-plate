@@ -170,14 +170,14 @@
       showEmbrague.textContent = mE === null ? '—' : formatDisplay2(mE);
       showCalibrado.textContent = mC === null ? '—' : formatDisplay2(mC);
 
-      // calcular resultado final: 0.4 - ((MedidaPlato + MedidaEmbrague) - CalibradoTool)
+      // calcular resultado final: 0.5 - ((MedidaPlato + MedidaEmbrague) - CalibradoTool)
       if (mP === null || mE === null || mC === null) {
         resultadoSpan.textContent = '—';
         return null;
       }
 
       // cálculo numérico controlado
-      const result = 0.4 - ((mP + mE) - mC);
+      const result = 0.5 - ((mP + mE) - mC);
       resultadoSpan.textContent = result.toFixed(4);
       return result;
     }
