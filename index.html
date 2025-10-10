@@ -5,235 +5,91 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Calculadora Plato · Embrague · Calibrado</title>
 
-  <!-- Tailwind via CDN (solo para utilidades rápidas de CSS) -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
     body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
     .card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,.06); padding: 16px; }
     input[type="number"] { -moz-appearance: textfield; }
-    /* quitar flechas en inputs number para chrome */
     input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     .img-fixed { width: 100%; max-width: 340px; height: auto; border-radius: 8px; object-fit: cover; border: 1px solid #e5e7eb; }
     .small-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; }
   </style>
 </head>
 <body class="bg-slate-100 p-6">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-2xl font-bold mb-4">Calculadora online — Plato · Embrague · Calibrado</h1>
+  <div class="max-w-5xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 id="t_title" class="text-2xl font-bold">Calculadora online — Plato · Embrague · Calibrado</h1>
+      <select id="langSelect" class="border rounded p-2 text-sm">
+        <option value="es">🌐 Español</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="it">🇮🇹 Italiano</option>
+      </select>
+    </div>
 
     <div class="grid md:grid-cols-3 gap-4 mb-6">
       <!-- PRIMER PASO -->
       <div class="card">
-        <h2 class="font-semibold mb-2">PRIMER PASO — Medida Plato</h2>
+        <h2 id="t_step1" class="font-semibold mb-2">PRIMER PASO — Medida Plato</h2>
         <div class="grid grid-cols-1 gap-2 mb-3">
-          <input class="p-2 border rounded" id="p1" type="text" placeholder="0.00" inputmode="decimal" />
-          <input class="p-2 border rounded" id="p2" type="text" placeholder="0.00" inputmode="decimal" />
-          <input class="p-2 border rounded" id="p3" type="text" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="p1" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="p2" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="p3" placeholder="0.00" inputmode="decimal" />
         </div>
         <div class="mb-3">
-          <!-- Imagen fija: coloca el archivo 'Medida-plato.jpg' en la misma carpeta que index.html -->
-          <img id="imgPlato" class="img-fixed" src="Medida-plato.jpg" alt="Medida Plato (fija)" />
+          <img class="img-fixed" src="Medida-plato.jpg" alt="Medida Plato" />
         </div>
-        <div><strong>Media:</strong> <span id="mediaPlato" class="small-mono text-slate-600">—</span></div>
+        <div><strong id="t_mean1">Media:</strong> <span id="mediaPlato" class="small-mono text-slate-600">—</span></div>
       </div>
 
       <!-- SEGUNDO PASO -->
       <div class="card">
-        <h2 class="font-semibold mb-2">SEGUNDO PASO — Medida Embrague</h2>
+        <h2 id="t_step2" class="font-semibold mb-2">SEGUNDO PASO — Medida Embrague</h2>
         <div class="grid grid-cols-1 gap-2 mb-3">
-          <input class="p-2 border rounded" id="e1" type="text" placeholder="0.00" inputmode="decimal" />
-          <input class="p-2 border rounded" id="e2" type="text" placeholder="0.00" inputmode="decimal" />
-          <input class="p-2 border rounded" id="e3" type="text" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="e1" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="e2" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="e3" placeholder="0.00" inputmode="decimal" />
         </div>
         <div class="mb-3">
-          <!-- Imagen fija: coloca el archivo 'Medida-embrague.jpg' en la misma carpeta que index.html -->
-          <img id="imgEmbrague" class="img-fixed" src="Medida-embrague.jpg" alt="Medida Embrague (fija)" />
+          <img class="img-fixed" src="Medida-embrague.jpg" alt="Medida Embrague" />
         </div>
-        <div><strong>Media:</strong> <span id="mediaEmbrague" class="small-mono text-slate-600">—</span></div>
+        <div><strong id="t_mean2">Media:</strong> <span id="mediaEmbrague" class="small-mono text-slate-600">—</span></div>
       </div>
 
       <!-- TERCER PASO -->
       <div class="card">
-        <h2 class="font-semibold mb-2">TERCER PASO — Calibrado Tool</h2>
+        <h2 id="t_step3" class="font-semibold mb-2">TERCER PASO — Calibrado Tool</h2>
         <div class="grid grid-cols-1 gap-2 mb-3">
-          <input class="p-2 border rounded" id="c1" type="text" placeholder="0.00" inputmode="decimal" />
-          <input class="p-2 border rounded" id="c2" type="text" placeholder="0.00" inputmode="decimal" />
-          <input class="p-2 border rounded" id="c3" type="text" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="c1" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="c2" placeholder="0.00" inputmode="decimal" />
+          <input class="p-2 border rounded" id="c3" placeholder="0.00" inputmode="decimal" />
         </div>
         <div class="mb-3">
-          <!-- Imagen fija: coloca el archivo 'Calibrado-tool.jpg' en la misma carpeta que index.html -->
-          <img id="imgCalibrado" class="img-fixed" src="Calibrado_tool.jpg" alt="Calibrado Tool (fija)" />
+          <img class="img-fixed" src="Calibrado-tool.jpg" alt="Calibrado Tool" />
         </div>
-        <div><strong>Media:</strong> <span id="mediaCalibrado" class="small-mono text-slate-600">—</span></div>
+        <div><strong id="t_mean3">Media:</strong> <span id="mediaCalibrado" class="small-mono text-slate-600">—</span></div>
       </div>
     </div>
 
-    <!-- Resultado -->
+    <!-- RESULTADO -->
     <div class="card mb-6">
-      <h2 class="font-semibold mb-2">Resultado final</h2>
-      <p class="mb-2"><strong>Grosor necesario para el correcto galgado de 0.4mm +/-0.1</strong></p>
-      <pre class="p-2 bg-slate-50 rounded small-mono">RESUMEN MEDIDAS</pre>
+      <h2 id="t_resultTitle" class="font-semibold mb-2">Resultado final</h2>
+      <p id="t_resultDesc" class="mb-2"><strong>Grosor necesario para el correcto galgado de 0.4mm +/-0.1</strong></p>
 
       <div class="grid md:grid-cols-2 gap-4 mt-3">
         <div>
-          <p><strong>Medida Plato:</strong> <span id="showPlato" class="small-mono text-slate-600">—</span></p>
-          <p><strong>Medida Embrague:</strong> <span id="showEmbrague" class="small-mono text-slate-600">—</span></p>
-          <p><strong>Calibrado Tool:</strong> <span id="showCalibrado" class="small-mono text-slate-600">—</span></p>
+          <p><strong id="t_labelPlato">Medida Plato:</strong> <span id="showPlato" class="small-mono text-slate-600">—</span></p>
+          <p><strong id="t_labelEmbrague">Medida Embrague:</strong> <span id="showEmbrague" class="small-mono text-slate-600">—</span></p>
+          <p><strong id="t_labelCalibrado">Calibrado Tool:</strong> <span id="showCalibrado" class="small-mono text-slate-600">—</span></p>
         </div>
         <div>
-          <p class="text-lg"><strong>Grosor necesario:</strong> <span id="resultado" class="text-xl font-mono">—</span></p>
-          <div class="mt-3 flex gap-2">
+          <p class="text-lg"><strong id="t_thickness">Grosor necesario:</strong> <span id="resultado" class="text-xl font-mono">—</span></p>
+          <div class="mt-3 flex gap-2 flex-wrap">
             <button id="calcular" class="px-3 py-2 rounded bg-blue-600 text-white">Calcular</button>
             <button id="copiar" class="px-3 py-2 rounded bg-green-600 text-white">Copiar resultado</button>
             <button id="reset" class="px-3 py-2 rounded bg-red-500 text-white">Reset</button>
           </div>
         </div>
       </div>
-      <p class="mt-3 text-sm text-slate-500">Los inputs aceptan coma o punto como separador decimal. Se formatean a 2 decimales al mostrar.</p>
-    </div>
-
-    <div class="text-sm text-slate-600">
-      <strong>Instrucciones para añadir la tercera imagen (Calibrado):</strong>
-      <ol class="list-decimal ml-5">
-        <li>Sube tu archivo de imagen al repositorio y nómbralo exactamente <code>Calibrado-tool.jpg</code> (o modifica el atributo <code>src</code> en la etiqueta &lt;img&gt; si prefieres otro nombre).</li>
-        <li>Asegúrate de que <code>index.html</code> y los tres archivos <code>.jpg</code> estén en la misma carpeta (por ejemplo, en la raíz del repo) antes de activar GitHub Pages.</li>
-        <li>Para publicar: ve a la configuración del repositorio → Pages → selecciona la rama principal y la carpeta raíz (root) → guardar. En unos segundos estará accesible en <code>https://tu-usuario.github.io/tu-repo/</code></li>
-      </ol>
-    </div>
-  </div>
-
-  <script>
-    // --- Helpers ---
-    function parseInputVal(v) {
-      if (typeof v !== 'string') return null;
-      v = v.trim().replace(',', '.');
-      if (v === '') return null;
-      // validar número (evita entradas como "-" o ".")
-      const n = Number(v);
-      return Number.isFinite(n) ? n : null;
-    }
-
-    function meanOfThree(a,b,c) {
-      if (a === null || b === null || c === null) return null;
-      // calcular promedio con precisión
-      const sum = (a + b + c);
-      return sum / 3;
-    }
-
-    function formatFixed2(x) {
-      // si x es null -> —
-      if (x === null) return '—';
-      return Number(x).toFixed(4); // mostramos 4 decimales en medias como en tu especificación original
-    }
-
-    function formatDisplay2(x) {
-      if (x === null) return '—';
-      return Number(x).toFixed(2); // para copias/visualización sencilla (2 decimales)
-    }
-
-    // --- Elementos ---
-    const ids = ['p1','p2','p3','e1','e2','e3','c1','c2','c3'];
-    const elems = {};
-    ids.forEach(id => elems[id] = document.getElementById(id));
-
-    const mediaPlatoSpan = document.getElementById('mediaPlato');
-    const mediaEmbragueSpan = document.getElementById('mediaEmbrague');
-    const mediaCalibradoSpan = document.getElementById('mediaCalibrado');
-
-    const showPlato = document.getElementById('showPlato');
-    const showEmbrague = document.getElementById('showEmbrague');
-    const showCalibrado = document.getElementById('showCalibrado');
-    const resultadoSpan = document.getElementById('resultado');
-
-    const btnCalcular = document.getElementById('calcular');
-    const btnCopiar = document.getElementById('copiar');
-    const btnReset = document.getElementById('reset');
-
-    function computeAndDisplay() {
-      // parse inputs
-      const p = [parseInputVal(elems.p1.value), parseInputVal(elems.p2.value), parseInputVal(elems.p3.value)];
-      const e = [parseInputVal(elems.e1.value), parseInputVal(elems.e2.value), parseInputVal(elems.e3.value)];
-      const c = [parseInputVal(elems.c1.value), parseInputVal(elems.c2.value), parseInputVal(elems.c3.value)];
-
-      const mP = meanOfThree(p[0], p[1], p[2]);
-      const mE = meanOfThree(e[0], e[1], e[2]);
-      const mC = meanOfThree(c[0], c[1], c[2]);
-
-      // actualizar vistas de medias (4 decimales)
-      mediaPlatoSpan.textContent = mP === null ? 'Introduce las 3 medidas' : formatFixed2(mP);
-      mediaEmbragueSpan.textContent = mE === null ? 'Introduce las 3 medidas' : formatFixed2(mE);
-      mediaCalibradoSpan.textContent = mC === null ? 'Introduce las 3 medidas' : formatFixed2(mC);
-
-      // mostrar medias resumidas
-      showPlato.textContent = mP === null ? '—' : formatDisplay2(mP);
-      showEmbrague.textContent = mE === null ? '—' : formatDisplay2(mE);
-      showCalibrado.textContent = mC === null ? '—' : formatDisplay2(mC);
-
-      // calcular resultado final: 0.5 - ((MedidaPlato + MedidaEmbrague) - CalibradoTool)
-      if (mP === null || mE === null || mC === null) {
-        resultadoSpan.textContent = '—';
-        return null;
-      }
-
-      // cálculo numérico controlado
-      const result = 0.5 - ((mP + mE) - mC);
-      resultadoSpan.textContent = result.toFixed(4);
-      return result;
-    }
-
-    // recalcular cuando cambian inputs (oninput para feedback inmediato)
-    ids.forEach(id => {
-      const el = elems[id];
-      el.addEventListener('input', () => {
-        // no forzamos formato hasta reset o blur; solo recalculamos
-        computeAndDisplay();
-      });
-      // al perder foco formateamos a 2 decimales si es un número válido
-      el.addEventListener('blur', () => {
-        const v = parseInputVal(el.value);
-        if (v === null) {
-          // no modificar si vacío o inválido
-          return;
-        }
-        el.value = Number(v).toFixed(2);
-        computeAndDisplay();
-      });
-    });
-
-    btnCalcular.addEventListener('click', () => {
-      const r = computeAndDisplay();
-      if (r === null) {
-        alert('Introduce las 3 medidas en cada grupo para obtener un resultado.');
-      }
-    });
-
-    btnCopiar.addEventListener('click', () => {
-      const r = computeAndDisplay();
-      if (r === null) {
-        alert('Resultado vacío: introduce todas las medidas.');
-        return;
-      }
-      navigator.clipboard ? navigator.clipboard.writeText(r.toFixed(4)).then(() => {
-        alert('Resultado copiado al portapapeles: ' + r.toFixed(4));
-      }).catch(() => {
-        prompt('Copia manualmente el resultado:', r.toFixed(4));
-      }) : prompt('Copia manualmente el resultado:', r.toFixed(4));
-    });
-
-    btnReset.addEventListener('click', () => {
-      ids.forEach(id => elems[id].value = '');
-      mediaPlatoSpan.textContent = '—';
-      mediaEmbragueSpan.textContent = '—';
-      mediaCalibradoSpan.textContent = '—';
-      showPlato.textContent = '—';
-      showEmbrague.textContent = '—';
-      showCalibrado.textContent = '—';
-      resultadoSpan.textContent = '—';
-    });
-
-    // calcular inicialmente (por si hay valores precargados)
-    computeAndDisplay();
-  </script>
-</body>
-</html>
+      <p id="t_hint" class="mt-3 text-sm text-slate-500">
+        Los inputs aceptan coma o punto como separador decimal. Se formatean a 2 decimales al mostra
